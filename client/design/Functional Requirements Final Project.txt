@@ -1,0 +1,17 @@
+﻿Functional Requirements:
+1. Anonymous User - Browse Drugs
+   * As an anonymous user, I can visit the homepage to view a list of drugs so I can explore what’s offered without needing to register or log in.
+2. Anonymous User - View Drug Classes
+   * As an anonymous user, I can view a list of all drug classes (e.g., Antihistamines, Statins), so I can understand the different categories of drugs offered.
+3. Authenticated User - View Drug Details
+   * As an authenticated user, I can click on a drug name to view detailed information about the drug, including its class and availability status, so I can make informed decisions about its usage.
+4. Authenticated User - Search for Drugs by Class
+   * As an anonymous user, I can filter drugs by class (e.g., Antihistamines, ACE Inhibitors), so I can easily find drugs in a specific category.
+5. Authenticated User - Add a New Drug
+   * As an authenticated user with an admin role, I can create a new drug by providing details like name, class, cost, and availability, so I can manage the drugs database.
+6. Authenticated User - Update Drug Information
+   * As an authenticated user with an admin role, I can update the details of an existing drug (e.g., change its price or availability), so I can keep the database current and accurate.
+7. Authenticated User - Delete a Drug
+   * As an authenticated user with an admin role, I can delete a drug from the database, so I can remove outdated or incorrect entries.
+8. As an anonymous or authenticated user, I can navigate to the "Contact Us" page and submit a message.
+   * Any user can fill out a contact form to send a message, regardless of login status.
