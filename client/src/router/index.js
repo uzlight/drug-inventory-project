@@ -6,6 +6,8 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import DrugDetailView from '../views/DrugDetailView.vue'
+import ClassDetailView from '../views/ClassDetailView.vue';
 
 
 /**
@@ -22,8 +24,22 @@ const routes = [
       name: 'home',
       component: HomeView,
       meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/drug/:id',
+      name: 'DrugDetail',
+      component: DrugDetailView,
+      meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/class/:id',
+      name: 'ClassDetail',
+      component: ClassDetailView,
+      props: true,
     },
     {
       path: "/login",

@@ -1,98 +1,99 @@
 <template>
-  <div class="home">
-    <div id="heading-line">
-      <h1>
-        Home
-        <loading-spinner id="spinner" v-bind:spin="isLoading" />
-      </h1>
-    </div>
-    <h2>Loading spinner demonstration</h2>
-    <p>
-      This is a demonstration of how you can show or hide a "spinner" icon to
-      let the user know something is happening. Before calling an API, you'd set
-      the data property <code>isLoading</code> to <code>true</code>. When the
-      call completes, set it to <code>false</code>.
-    </p>
-    <p>
-      For this demonstration, clicking the checkbox below sets
-      <code>isLoading</code> to <code>true</code>, so it simulates what the user
-      would see when your app is accessing an API.
-    </p>
-    <input type="checkbox" name="loading" id="loading" v-model="isLoading" /> Is
-    Loading
-    <p id="login-message" v-if="!isLoggedIn">
-      Welcome! You may browse anonymously as much as you wish,<br />
-      but you must
-      <router-link v-bind:to="{ name: 'login' }">Login</router-link> to add
-      items to your shopping cart.
-    </p>
-    <h2>Font-awesome demonstration</h2>
-    <p>
-      This code shows you how you can include Font-awesome icons on your page. Below are two icons:
-      one to indicate a "tile" view of products, and another to indicate a "table" view. There's also a little bit
-      of styling to get you started, but you can style it your own way. And there's a property to track which view is "active".
-    </p>
-    <font-awesome-icon
-      v-bind:class="{ 'view-icon': true, active: cardView }"
-      v-on:click="cardView = true"
-      icon="fa-solid fa-grip"
-      title="View tiles"
-    />
-    <font-awesome-icon
-      v-bind:class="{ 'view-icon': true, active: !cardView }"
-      v-on:click="cardView = false"
-      icon="fa-solid fa-table"
-      title="View table"
-    />
+  <div id="main-div" v-if="!isLoading">
+    <choices-selection id="choices"/>
+    <displays-table id="displays"/>
+  </div>
+  <div v-else>
+    Loading...
   </div>
 </template>
 
 <script>
-import LoadingSpinner from "../components/LoadingSpinner.vue";
+import ChoicesSelection from '../components/ChoicesSelection.vue';
+import DisplaysTable from '../components/DisplaysTable.vue';
+import { resourceService } from '../services/ResourceService.js';
 
 export default {
-  components: {
-    LoadingSpinner,
-  },
+  components: {ChoicesSelection, DisplaysTable},
   data() {
     return {
       isLoading: false,
-      cardView: true,
+      error: null
     };
   },
-  computed: {
-    isLoggedIn() {
-      return this.$store.state.token.length > 0;
-    },
-  },
-};
+  created() {
+    this.isLoading = true;
+
+    Promise.all([
+      resourceService.getDrugs(), 
+      resourceService.getClasses()
+    ]).then(([drugResponse, resourceResponse]) => {
+      this.$store.commit('SET_DRUGS', drugResponse.data);
+      this.$store.commit('SET_CLASSES', resourceResponse.data);
+    }).catch( (error) => {
+      console.log(error);
+    }).finally( () => {
+      this.isLoading = false;
+    }) ;
+
+    this.$store.commit('SET_CHOICES', resourceService.getChoices());
+  } 
+}
 </script>
 
-<style scoped>
-#spinner {
-  color: green;
+<style>
+#main-div {
+    grid-area: Main;
+    display: grid;
+    background-color: rgb(198, 197, 185);
+    padding: 10px;
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: "choices displays";
+    overflow: auto;
 }
 
-.view-icon {
-  font-size: 1.2rem;
-  margin-right: 7px;
-  padding: 3px;
-  color: #444;
-  border-radius: 3px;
+#choices {
+  grid-area: choices;
 }
 
-.view-icon.active {
-  background-color: lightgreen;
+#displays {
+  grid-area: displays;
 }
 
-.view-icon:not(.active) {
-  font-size: 1.2rem;
-  margin-right: 7px;
-  cursor: pointer;
-}
+@media (max-width: 425px) {
+    h1 {
+        font-size: 6vw;
+    }
 
-.view-icon:not(.active):hover {
-  color: blue;
-  background-color: rgba(255, 255, 255, 0.7);
-}
+    nav {
+        flex-grow:1;
+    }
+
+    nav a {
+        display: flex;
+        font-size: 2.5vw;
+    }
+
+    ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #main-div {
+        flex-direction: column;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+         "choices" 
+         "displays";
+    }
+
+    #image {
+        max-width: 20vw;
+    }
+
+    h2 {
+        font-size: 5vw;
+    }
+
+  }
 </style>
