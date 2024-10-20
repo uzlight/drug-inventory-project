@@ -11,18 +11,18 @@
           <tr v-for="display in filteredDisplays" :key="display.id">
             <td>
               <router-link
-                v-if="display.drug_name"
+                v-if="display.name"
                 :to="{ name: 'DrugDetail', params: { id: display.id } }"
               >
-                {{ display.drug_name }}
+                {{ display.name }}
               </router-link>
             </td>
             <td>
               <router-link
-                v-if="display.classes_name"
-                :to="{ name: 'ClassDetail', params: { id: display.class_id } }"
+                v-if="display.name"
+                :to="{ name: 'ClassDetail', params: { id: display.id } }"
               >
-                {{ display.classes_name }}
+                {{ display.name }}
               </router-link>
             </td>
           </tr>
@@ -43,12 +43,13 @@ export default {
       let filtered = [];
       const currentChoiceId = this.$store.state.currentChoiceId;
       if (currentChoiceId === 1) {
+        console.log("hello", this.$store.state.drugs)
         filtered = this.$store.state.drugs;
       } else if (currentChoiceId === 2) {
         filtered = this.$store.state.classes.map(cls => ({
           id: cls.id,
-          classes_name: cls.class_name,
-          drug_name: null,
+          name: cls.name,
+          // drug_name: null,
         }));
       } else {
         filtered = this.$store.state.drugs.filter(drug => drug.class_id === currentChoiceId);
