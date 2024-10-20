@@ -11,13 +11,13 @@
           <button>Home</button>
         </router-link>
 
-        <router-link v-bind:to="{ name: 'home' }">
+        <!-- <router-link v-bind:to="{ name: 'home' }">
           <button>Suggestions</button>
         </router-link>
 
         <router-link v-bind:to="{ name: 'home' }">
           <button>Contact Us</button>
-        </router-link>
+        </router-link> -->
 
         <router-link v-bind:to="{ name: 'logout' }" v-if="this.$store.state.token">
           <button>Logout</button>

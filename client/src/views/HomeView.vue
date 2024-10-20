@@ -1,7 +1,7 @@
 <template>
   <div id="main-div" v-if="!isLoading">
-    <choices-selection id="choices"/>
-    <displays-table id="displays"/>
+    <choices-selection />
+    <displays-table />
   </div>
   <div v-else>
     Loading...
@@ -14,86 +14,50 @@ import DisplaysTable from '../components/DisplaysTable.vue';
 import { resourceService } from '../services/ResourceService.js';
 
 export default {
-  components: {ChoicesSelection, DisplaysTable},
+  components: {
+    ChoicesSelection,
+    DisplaysTable,
+  },
   data() {
     return {
       isLoading: false,
-      error: null
     };
   },
   created() {
     this.isLoading = true;
-
     Promise.all([
-      resourceService.getDrugs(), 
+      resourceService.getDrugs(),
       resourceService.getClasses()
-    ]).then(([drugResponse, resourceResponse]) => {
-      this.$store.commit('SET_DRUGS', drugResponse.data);
-      this.$store.commit('SET_CLASSES', resourceResponse.data);
-    }).catch( (error) => {
-      console.log(error);
-    }).finally( () => {
+    ]).then(([drugsResponse, classesResponse]) => {
+      this.$store.commit('SET_DRUGS', drugsResponse.data);
+      this.$store.commit('SET_CLASSES', classesResponse.data);
+    }).catch(error => {
+      console.error('Failed to fetch data:', error);
+    }).finally(() => {
       this.isLoading = false;
-    }) ;
-
-    this.$store.commit('SET_CHOICES', resourceService.getChoices());
-  } 
+    });
+    const choices = resourceService.getChoices();
+    this.$store.commit('SET_CHOICES', choices);
+  }
 }
 </script>
 
 <style>
 #main-div {
-    grid-area: Main;
     display: grid;
-    background-color: rgb(198, 197, 185);
-    padding: 10px;
     grid-template-columns: 1fr 2fr;
     grid-template-areas: "choices displays";
+    background-color: rgb(198, 197, 185);
+    padding: 10px;
     overflow: auto;
 }
 
-#choices {
-  grid-area: choices;
-}
-
-#displays {
-  grid-area: displays;
-}
-
 @media (max-width: 425px) {
-    h1 {
-        font-size: 6vw;
-    }
-
-    nav {
-        flex-grow:1;
-    }
-
-    nav a {
-        display: flex;
-        font-size: 2.5vw;
-    }
-
-    ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
     #main-div {
-        flex-direction: column;
         grid-template-columns: 1fr;
         grid-template-areas:
-         "choices" 
+         "choices"
          "displays";
     }
-
-    #image {
-        max-width: 20vw;
-    }
-
-    h2 {
-        font-size: 5vw;
-    }
-
-  }
+}
 </style>

@@ -146,4 +146,91 @@ export default {
 </script>
 
 <style scoped>
+#register-container {
+  background-color: rgb(198, 197, 185);
+  border-radius: 10px;
+  margin: 50px auto;
+  width: 80%;
+  max-width: 500px;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: beige;
+  -webkit-text-stroke: 1px black;
+}
+
+#fields {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-size: 1.2rem;
+  color: rgb(83, 83, 83);
+}
+
+input {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: rgb(198, 197, 185);
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(160, 160, 150);
+}
+
+hr {
+  margin: 20px 0;
+  border: 1px solid rgb(83, 83, 83);
+}
+
+router-link {
+  color: rgb(31, 168, 70);
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+router-link:hover {
+  text-decoration: underline;
+}
+
+
+@media (max-width: 425px) {
+
+  
+  #register-container {
+    width: 95%;
+    max-width: none;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  input {
+    font-size: 1rem;
+    padding: 8px;
+  }
+
+
+  button {
+    font-size: 1rem;
+    padding: 8px 15px;
+  }
+}
+
 </style>
