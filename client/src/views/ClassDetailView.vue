@@ -1,11 +1,11 @@
 <template>
   <div>
     <div v-if="drugClass">
-      <h2>{{ drugClass.class_name }}</h2>
+      <h2>{{ drugClass.name }}</h2>
       <h3>Drugs in this class:</h3>
       <ul>
         <li v-for="drug in drugs" :key="drug.id">
-          <router-link :to="{ name: 'DrugDetail', params: { id: drug.id } }">{{ drug.drug_name }}</router-link>
+          <router-link :to="{ name: 'DrugDetail', params: { id: drug.id } }">{{ drug.name }}</router-link>
         </li>
       </ul>
       <button @click="$router.back()">Back</button>
@@ -23,7 +23,7 @@ export default {
   name: 'ClassDetailView',
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true
     }
   },
@@ -49,8 +49,9 @@ export default {
         });
     },
     getDrugsByClass(classId) {
-      resourceService.getDrugsByClassId(classId)
+      resourceService.getDrugsByClassId(parseInt(classId, 10))
         .then(response => {
+          console.log("response", response)
           this.drugs = response.data;
         })
         .catch(error => {

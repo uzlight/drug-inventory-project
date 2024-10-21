@@ -13,8 +13,14 @@
           <tr v-for="display in filteredDisplays" :key="display.id">
             <td>
               <router-link
-                v-if="display.name"
+                v-if="display.name && getCurrentChoice === 1"
                 :to="{ name: 'DrugDetail', params: { id: display.id } }"
+              >
+                {{ display.name }}
+              </router-link>
+              <router-link
+                v-else-if="display.name && getCurrentChoice === 2"
+                :to="{ name: 'ClassDetail', params: { id: display.id } }"
               >
                 {{ display.name }}
               </router-link>

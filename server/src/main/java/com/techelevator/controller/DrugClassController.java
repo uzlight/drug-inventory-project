@@ -32,20 +32,20 @@ public class DrugClassController {
         return drugClassDao.getDrugClassById(classId);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public DrugClass createDrugClass(@RequestBody DrugClass drugClass) {
         return drugClassDao.createDrugClass(drugClass);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PutMapping(path = "/{drugClassId}")
     public DrugClass updateDrugClass(@PathVariable int drugClassId, @RequestBody DrugClass drugClass) {
         return drugClassDao.updateDrugClass(drugClassId, drugClass);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "/{drugClassId}")
     public void deleteDrugClass (@PathVariable int drugClassId) {
