@@ -14,6 +14,7 @@
             <input v-model="drugClass.name" placeholder="Class Name" />
             <button @click="updateDrugClass(drugClass.id)">Update</button>
             <button @click="deleteDrugClass(drugClass.id)">Delete</button>
+            <p>WARNING: Please delete all drugs in class before deleting class!</p>
           </div>
         </li>
       </ul>

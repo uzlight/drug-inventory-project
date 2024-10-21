@@ -2,14 +2,14 @@
   <div>
     <div v-if="drugClass">
       <h2>{{ drugClass.name }}</h2>
-      <pre>{{ drugClass.id }}</pre>
       <h3>Drugs in this class:</h3>
       <ul>
         <li v-for="drug in drugs" :key="drug.id">
           <router-link :to="{ name: 'DrugDetail', params: { id: drug.id } }">{{ drug.name }}</router-link>
+          <span> | </span>
           <router-link
               :to="{ name: 'EditDrug', params: { id: drug.id, class_id: drugClass.id} }">
-              {{ "\n edit" }}
+              {{ "      edit" }}
           </router-link>
         </li>
       </ul>
@@ -81,4 +81,5 @@ li {
 button {
   margin-top: 20px;
 }
+
 </style>

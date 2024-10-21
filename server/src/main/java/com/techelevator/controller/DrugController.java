@@ -48,7 +48,7 @@ public class DrugController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @PutMapping(path = "/updateDrug/")
+    @RequestMapping(path = "/updateDrug/{drugId}", method = RequestMethod.PUT)
     public Drug updateDrug(@PathVariable int drugId, @RequestBody Drug drug) {
         return drugDao.updateDrug(drugId, drug);
     }

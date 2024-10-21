@@ -36,7 +36,7 @@ const resourceService = {
     return axios.post('/drug/createDrug', drug);
   },
   updateDrug(drugId, drug) {
-    return axios.put(`/drug/updateDrug`, drug);
+    return axios.put(`/drug/updateDrug/${drugId}`, drug);
   },
   deleteDrug(drugId) {
     return axios.delete(`/drug/${drugId}`);

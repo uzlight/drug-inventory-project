@@ -13,7 +13,7 @@
           {{ drug.name }} - ${{ drug.cost }}
           <div>
             <input v-model="drug.name" placeholder="Drug Name" />
-            <input v-model="drug.cost" type="number" placeholder="Cost" />
+            <input v-model="drug.cost" placeholder="Cost" />
             <button @click="updateDrug(drug.id)">Update</button>
             <button @click="deleteDrug(drug.id)">Delete</button>
           </div>
@@ -92,7 +92,7 @@ export default {
     console.log("Drug ID:", this.drugId);
     console.log("Class ID:", this.classId);
 
-    resourceService.getDrugs()
+    resourceService.getDrugsByClassId(this.classId)
       .then(response => {
         this.drugs = response.data;
       })
