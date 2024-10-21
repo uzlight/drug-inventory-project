@@ -2,8 +2,10 @@
     <section>
       <table id="display-table">
         <thead>
-          <tr>
+          <tr v-if="getCurrentChoice === 1">
             <th>Drug</th>
+          </tr>
+          <tr v-if="getCurrentChoice === 2">
             <th>Drug Class</th>
           </tr>
         </thead>
@@ -17,14 +19,14 @@
                 {{ display.name }}
               </router-link>
             </td>
-            <td>
+            <!-- <td>
               <router-link
                 v-if="display.name"
                 :to="{ name: 'ClassDetail', params: { id: display.id } }"
               >
                 {{ display.name }}
               </router-link>
-            </td>
+            </td> -->
           </tr>
         </tbody>
       </table>
@@ -56,6 +58,9 @@ export default {
       }
       console.log("Filtered results:", JSON.stringify(filtered));
       return filtered;
+    },
+    getCurrentChoice() {
+      return this.$store.state.currentChoiceId;
     }
   }
 }

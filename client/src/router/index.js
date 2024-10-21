@@ -33,7 +33,8 @@ const routes = [
       component: DrugDetailView,
       meta: {
         requiresAuth: true
-      }
+      },
+      props: true
     },
     {
       path: '/class/:id',

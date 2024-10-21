@@ -1,6 +1,6 @@
 <template>
     <div v-if="drug">
-      <h2>{{ drug.drug_name }}</h2>
+      <h2>{{ drug.name }}</h2>
       <p>Cost: ${{ drug.cost }}</p>
       <p>Availability: {{ drug.is_available ? 'Available' : 'Not Available' }}</p>
       <p> Class: <router-link :to="{ name: 'ClassDetail', params: { id: drug.class_id } }">
@@ -34,6 +34,7 @@ export default {
 
   methods: {
     getDrugDetails() {
+      console.log("hello3", this.id)
       resourceService.getDrugById(this.id)
         .then(response => {
           this.drug = response.data;
