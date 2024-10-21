@@ -6,6 +6,10 @@
       <ul>
         <li v-for="drug in drugs" :key="drug.id">
           <router-link :to="{ name: 'DrugDetail', params: { id: drug.id } }">{{ drug.name }}</router-link>
+          <router-link
+              :to="{ name: 'EditDrug', params: { id: drug.id } }">
+              {{ "\n edit" }}
+          </router-link>
         </li>
       </ul>
       <button @click="$router.back()">Back</button>

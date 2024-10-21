@@ -25,6 +25,13 @@
                 {{ display.name }}
               </router-link>
             </td>
+            <td>
+              <router-link v-if="getCurrentChoice === 2"
+                :to="{ name: 'EditDrugClass', params: { id: display.id } }"
+              >
+                {{ "edit" }}
+              </router-link>
+            </td>
             <!-- <td>
               <router-link
                 v-if="display.name"

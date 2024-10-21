@@ -7,7 +7,9 @@ import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import DrugDetailView from '../views/DrugDetailView.vue'
-import ClassDetailView from '../views/ClassDetailView.vue';
+import ClassDetailView from '../views/ClassDetailView.vue'
+import EditDrug from '../components/EditDrug.vue'
+import EditDrugClass from '../components/EditDrugClass.vue';
 
 
 /**
@@ -37,6 +39,42 @@ const routes = [
       props: true,
     },
     {
+      path: '/edit-drug',
+      name: 'EditDrug',
+      component: EditDrug,
+      meta: {
+        requiresAuth: true,
+      },
+      props: true,
+    },
+    {
+      path: '/edit-drug-class',
+      name: 'EditDrugClass',
+      component: EditDrugClass,
+      meta: {
+        requiresAuth: true, 
+      },
+      props: true,
+    },
+    // {
+    //   path: '/drug/createDrug',
+    //   name: 'addDrug',
+    //   component: EditDrug,
+    //   meta: {
+    //     requiresAuth: true
+    //   },
+    //   props: true,
+    // },
+    // {
+    //   path: `/drug/updateDrug`,
+    //   name: 'updateDrug',
+    //   component: UpdateDrugView,
+    //   meta: {
+    //     requiresAuth: true
+    //   },
+    //   props: true,
+    // },
+    {
       path: '/class/:id',
       name: 'ClassDetail',
       component: ClassDetailView,
@@ -45,6 +83,7 @@ const routes = [
       },
       props: true,
     },
+
     {
       path: "/login",
       name: "login",

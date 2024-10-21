@@ -76,7 +76,7 @@ public class JdbcDrugClassDao implements DrugClassDao {
     public DrugClass updateDrugClass(int classId, DrugClass updatedClass) {
         String updatedClassSql = "UPDATE class SET class_name = ? WHERE class_id = ?";
         try {
-            template.update(updatedClassSql, updatedClass.getName());
+            template.update(updatedClassSql, updatedClass.getName(), updatedClass.getId());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {

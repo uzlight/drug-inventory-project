@@ -43,7 +43,7 @@ public class JdbcDrugDao implements DrugDao{
         String sql = "SELECT * FROM drug WHERE class_id = ?";
         try {
             SqlRowSet results = template.queryForRowSet(sql, classId);
-            if (results.next()) {
+            while (results.next()) {
                 Drug drug = mapRowToDrug(results);
                 drugs.add(drug);
             }

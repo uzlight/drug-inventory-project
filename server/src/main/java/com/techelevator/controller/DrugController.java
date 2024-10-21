@@ -42,13 +42,13 @@ public class DrugController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(path = "")
+    @RequestMapping(path = "/createDrug", method = RequestMethod.POST)
     public Drug createDrugForClass(@RequestBody Drug drug) {
         return drugDao.createDrug(drug);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @PutMapping(path = "/{drugId}")
+    @PutMapping(path = "/updateDrug/")
     public Drug updateDrug(@PathVariable int drugId, @RequestBody Drug drug) {
         return drugDao.updateDrug(drugId, drug);
     }
