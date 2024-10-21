@@ -28,38 +28,32 @@ public class DrugController {
         return drugDao.getAllDrugs();
     }
 
-//    @PreAuthorize("hasRole('USER')")
-//    @GetMapping(path = "/{id}")
-//    public Drug getDrug(@PathVariable int id) {
-//        return drugDao.getDrugById(id);
-//    }
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @GetMapping(path = "/{id}")
+    public Drug getDrug(@PathVariable int id) {
+        return drugDao.getDrugById(id);
+    }
 
-//    @PreAuthorize("hasRole('ROLE_USER')")
-//    @GetMapping(path = "/class/{classId}")
-//    public List<Drug> getDrugsByClassId(@PathVariable int classId) {
-//        return drugDao.getAllDrugsForClass(classId);
-//    }
-
-//    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @RequestMapping(path = "/class/{classId}", method = RequestMethod.GET)
     public List<Drug> getDrugsByClassId(@PathVariable int classId) {
         return drugDao.getAllDrugsForClass(classId);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "")
     public Drug createDrugForClass(@RequestBody Drug drug) {
         return drugDao.createDrug(drug);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(path = "/{drugId}")
     public Drug updateDrug(@PathVariable int drugId, @RequestBody Drug drug) {
         return drugDao.updateDrug(drugId, drug);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "/{drugId}")
     public void deleteDrug (@PathVariable int drugId) {

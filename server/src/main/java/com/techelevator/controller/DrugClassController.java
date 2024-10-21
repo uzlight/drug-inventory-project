@@ -26,26 +26,26 @@ public class DrugClassController {
         return drugClassDao.getAllDrugClasses();
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping(path = "/{classId}")
     public DrugClass getDrugClass(@PathVariable int classId) {
         return drugClassDao.getDrugClassById(classId);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public DrugClass createDrugClass(@RequestBody DrugClass drugClass) {
         return drugClassDao.createDrugClass(drugClass);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(path = "/{drugClassId}")
     public DrugClass updateDrugClass(@PathVariable int drugClassId, @RequestBody DrugClass drugClass) {
         return drugClassDao.updateDrugClass(drugClassId, drugClass);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "/{drugClassId}")
     public void deleteDrugClass (@PathVariable int drugClassId) {
