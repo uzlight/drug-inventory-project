@@ -4,7 +4,7 @@
         <h3>Create a New Drug</h3>
         <input v-model="newDrugName" placeholder="Drug Name" />
         <input v-model="newDrugCost" placeholder="Cost" type="number" />
-        <input v-model="newDrugClass" placeholder="Class Name" />
+        <!-- <input v-model="newDrugClass" placeholder="Class Name" /> -->
         <button @click="createDrug">Create Drug</button>
       </div>
         <h3>Drug List</h3>
@@ -32,7 +32,9 @@ export default {
       newDrugName: '',
       newDrugCost: 0,
       drugs: [],
-      newDrugClass: '',
+      drugId: null,
+      classId: null,
+    //   newDrugClass: '',
     };
   },
   computed: {
@@ -50,14 +52,15 @@ export default {
         name: this.newDrugName,
         cost: this.newDrugCost,
         isAvailable: true, 
-        class: this.newDrugClass,
+        classId: this.classId,
+           // class: this.newDrugClass,
       };
       resourceService.createDrug(drug)
         .then(response => {
           this.drugs.push(response.data); 
           this.newDrugName = '';
           this.newDrugCost = 0;
-          this.newDrugClass = '';
+        //   this.newDrugClass = '';
         })
         .catch(error => {
           console.error("Error creating drug:", error);
@@ -84,6 +87,11 @@ export default {
     },
   },
   created() {
+    this.drugId = this.$route.params.id;
+    this.classId = this.$route.params.class_id;
+    console.log("Drug ID:", this.drugId);
+    console.log("Class ID:", this.classId);
+
     resourceService.getDrugs()
       .then(response => {
         this.drugs = response.data;

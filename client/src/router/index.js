@@ -39,7 +39,7 @@ const routes = [
       props: true,
     },
     {
-      path: '/edit-drug',
+      path: '/edit-drug/:id/:class_id',
       name: 'EditDrug',
       component: EditDrug,
       meta: {
