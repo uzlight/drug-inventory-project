@@ -34,12 +34,15 @@ const routes = [
       meta: {
         requiresAuth: true
       },
-      props: true
+      props: true,
     },
     {
       path: '/class/:id',
       name: 'ClassDetail',
       component: ClassDetailView,
+      meta: {
+        requiresAuth: true
+      },
       props: true,
     },
     {
